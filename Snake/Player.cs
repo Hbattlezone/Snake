@@ -1,19 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Snake
 {
-    class Player
+    public class Player
     {
-        public Dictionary<string, Tuple<string, int, int>> DSnake = new Dictionary<string, Tuple<string, int, int>>();
-
-        public void GetMove()
+        private List<(string, int, int)> snakeAttributes = new List<(string Name, int Amount, int Coordinates)>
         {
-            
-        }
+            (Name: "S", Amount: 0, Coordinates: 0)
+        };
 
+        public Player()
+        {
+
+        }
     }
 }

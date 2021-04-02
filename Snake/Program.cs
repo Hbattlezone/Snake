@@ -27,10 +27,10 @@ namespace Snake
         {
             boxArea = (height - 2) * (width - 2);
             boxDimensions = height * width;
-            
-            middleOfBoxOdd = (int)Math.Ceiling(boxDimensions / 2.0);
+
+            middleOfBoxOdd = (int) Math.Ceiling(boxDimensions / 2.0);
             middleOfBoxEven = middleOfBoxOdd - width / 2;
-            
+
             this.height = height;
             this.width = width;
 
@@ -40,8 +40,8 @@ namespace Snake
                 {
                     if (i > 0 && j > 0)
                     {
-                        if (j < width -1)
-                            if (i == height -1 && j != width -1)
+                        if (j < width - 1)
+                            if (i == height - 1 && j != width - 1)
                             {
                                 boxList.Add(dot);
                             }
@@ -61,6 +61,7 @@ namespace Snake
                     }
                 }
             }
+
             CalculateSpace();
         }
 
@@ -90,7 +91,7 @@ namespace Snake
             Console.WriteLine("\n\nThe amount of spaces: " + validSpaces.Count());
             Console.WriteLine("\nThe middle of the list is value: " + validSpaces[middleOfValidSpaces]);
             Console.WriteLine("The middle of the box value is: " + middleOfBoxOdd);
-            Console.WriteLine("The snake is at position: " );
+            Console.WriteLine("The snake is at position: {0}");
         }
 
         //Iterates over the boxList and places a defined fruit in a valid area.
@@ -137,15 +138,17 @@ namespace Snake
                         num2 = random.Next(1000);
                     }
                 }
+
                 iterationCount++;
             }
+
             Console.WriteLine("\nAmount of number generations: " + iCount);
             Console.WriteLine("Amount of iterations: " + iterationCount);
-            
+
         }
 
         //TODO code to iterate over the boxList and place the snake in the center of the screen.
-        public void PlaceSnake()
+        public void PlaceSnake(Player InputSnake)
         {
             CalculateSpace();
 
@@ -164,7 +167,7 @@ namespace Snake
                 boxList.RemoveAt(middleOfBoxOdd);
                 boxList.Insert(middleOfBoxOdd, "s");
             }
-            
+
         }
 
         //Calculates all the blank spaces inside the defined game window and puts them into a string list.
@@ -173,8 +176,8 @@ namespace Snake
             validSpaces.Clear();
             for (int i = 0; i < boxDimensions; i++)
             {
-                if (boxList[i] == " " && validSpaces.Contains(i+1) == false)
-                {   
+                if (boxList[i] == " " && validSpaces.Contains(i + 1) == false)
+                {
                     validSpaces.Add(i + 1);
                 }
             }
@@ -189,48 +192,28 @@ namespace Snake
 
         }
     }
-    
-    class Player
+
+    class Program
     {
-        public List<(string, int, int)> snakeAttributes = new List<(string Name, int Amount, int Coordinates)>
+        static void Main(string[] args)
         {
-            ("S", 0, 0)
-        };
-        public Player()
-        {
-            
+            Player snake = new Player();
+
+            Random num = new Random();
+            bool isExit = false;
+
+            do
+            {
+                Box newBox = new Box(num.Next(40, 50), num.Next(10, 20));
+                newBox.PlaceSnake(snake);
+                newBox.RandomFruit();
+                newBox.ShowBoxStats();
+                newBox.PrintBox();
+                newBox.PrintValidSpaces();
+                System.Threading.Thread.Sleep(3000);
+                Console.Clear();
+            } while (isExit == false);
         }
-            
-
-        public void GetMove()
-        {
-            
-        }
-
-    }
-}
-
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        Random num = new Random(); 
-        bool isExit = false;
-
-        do
-        {
-            Box newBox = new Box(num.Next(40,50), num.Next(10,20));
-            newBox.PlaceSnake();
-            newBox.RandomFruit();
-            newBox.ShowBoxStats();
-            newBox.PrintBox(); 
-            newBox.PrintValidSpaces();
-            System.Threading.Thread.Sleep(3000);
-            Console.Clear();
-        }
-        while (isExit == false);
-        
     }
 }
 
