@@ -4,14 +4,45 @@ namespace Snake
 {
     public class Player
     {
-        private List<(string, int, int)> snakeAttributes = new List<(string Name, int Amount, int Coordinates)>
-        {
-            (Name: "S", Amount: 0, Coordinates: 0)
-        };
+        private string _name { get; set; }
+        private int _amount { get; set; }
+        private int _coordinates { get; set; }
 
         public Player()
         {
 
+        }
+
+        public string GetName()
+        {
+            return _name;
+        }
+        public void SetName(string name)
+        {
+            _name = name;
+        }
+
+        public int GetAmount()
+        {
+            return _amount;
+        }
+        public void SetAmount(int amount)
+        {
+            _amount = amount;
+        }
+
+        public int GetCoord()
+        {
+            return _coordinates;
+        }
+        public void SetCoord(int coord)
+        {
+            _coordinates = coord;
+        }
+
+        public void MovePlayer()
+        {
+            
         }
     }
 }

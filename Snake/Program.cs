@@ -82,16 +82,16 @@ namespace Snake
         }
 
         //Debug -- Prints the box size to the Console screen.
-        public void ShowBoxStats()
+        public void ShowBoxStats(Player snake)
         {
             Console.Write("\nGamewindow Size: {0} x {1} = {2}", width, height, (height * width));
             Console.WriteLine("\n\nThe valid empty spaces inside the box are: ");
             foreach (int element in validSpaces)
                 Console.Write(element + ", ");
             Console.WriteLine("\n\nThe amount of spaces: " + validSpaces.Count());
-            Console.WriteLine("\nThe middle of the list is value: " + validSpaces[middleOfValidSpaces]);
-            Console.WriteLine("The middle of the box value is: " + middleOfBoxOdd);
-            Console.WriteLine("The snake is at position: {0}");
+            Console.WriteLine("\nThe middle number in 'validSpaces' is: " + validSpaces[middleOfValidSpaces]);
+            Console.WriteLine("Half of the Box size is: " + middleOfBoxOdd);
+            Console.WriteLine("The snake is at position: {0}", snake.GetCoord());
         }
 
         //Iterates over the boxList and places a defined fruit in a valid area.
@@ -148,22 +148,25 @@ namespace Snake
         }
 
         //TODO code to iterate over the boxList and place the snake in the center of the screen.
-        public void PlaceSnake(Player InputSnake)
+        public void PlaceSnake(Player snake)
         {
             CalculateSpace();
 
             if (height % 2 == 0 && width % 2 == 0)
             {
+                snake.SetCoord(middleOfBoxEven);
                 boxList.RemoveAt(middleOfBoxEven);
                 boxList.Insert(middleOfBoxEven, "s");
             }
             else if (width % 2 != 0 && height % 2 == 0)
             {
+                snake.SetCoord(middleOfBoxEven);
                 boxList.RemoveAt(middleOfBoxEven);
                 boxList.Insert(middleOfBoxEven, "s");
             }
             else
             {
+                snake.SetCoord(middleOfBoxOdd);
                 boxList.RemoveAt(middleOfBoxOdd);
                 boxList.Insert(middleOfBoxOdd, "s");
             }
@@ -204,10 +207,10 @@ namespace Snake
 
             do
             {
-                Box newBox = new Box(num.Next(40, 50), num.Next(10, 20));
+                Box newBox = new Box(10,10);
                 newBox.PlaceSnake(snake);
                 newBox.RandomFruit();
-                newBox.ShowBoxStats();
+                newBox.ShowBoxStats(snake);
                 newBox.PrintBox();
                 newBox.PrintValidSpaces();
                 System.Threading.Thread.Sleep(3000);
